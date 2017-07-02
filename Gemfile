@@ -27,6 +27,7 @@ gem 'jquery-rails'
 gem 'bootstrap-sass', '3.3.6'
 gem 'will_paginate',          '3.1.0'
 gem 'bootstrap-will_paginate', '0.0.10'
+gem 'marked-rails'
 
 
 # Use CoffeeScript for .coffee assets and views

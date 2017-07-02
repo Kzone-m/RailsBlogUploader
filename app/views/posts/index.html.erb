@@ -1,0 +1,32 @@
+<h2 class="text-center">投稿一覧</h2>
+<div class="container-fluid">
+  <div class="row">
+    <% @posts.each do | post | %>
+      <div class="col-sm-4">
+        <div class="post-card-wrapper">
+          <h3 class="text-center"><%= post.title %></h3>
+          <p class="text-right"><small>posted by <%= User.find_by(id: post.user_id).name %></small></p>
+          <p class="text-right"><small>Posted <%= time_ago_in_words(post.created_at) %>ago.</small></p>
+          <hr>
+          <div class="post-content">
+            <%= post.content %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+  var postContent = $('.post-content');
+  console.log(postContent.val());
+  function setContent(value){
+    console.log(value);
+    var markedContent = marked(value);
+    postContent.html(markedContent);
+  }
+
+  setContent(postContent.html());
+})
+</script>
