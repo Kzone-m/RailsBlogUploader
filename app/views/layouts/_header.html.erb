@@ -1,6 +1,10 @@
 <div class="container-fluid">
   <nav class="navbar navbar-default">
-    <a class="navbar-brand" href="#">&nbsp;&nbsp;KRS</a>
+    <% if logged_in? %>
+      <%= link_to "KRS", posts_path, class: "navbar-brand" %>
+    <% else %>
+      <%= link_to "KRS", root_path, class: "navbar-brand" %>
+    <% end %>
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#gnavi">
         <span class="sr-only">メニュー</span>
@@ -15,8 +19,8 @@
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
           <li><%= link_to "投稿する", new_post_path %></li>
-          <li><a href="">マイページ&nbsp;</a></li>
-          <li><a href="">ログアウト&nbsp;</a></li>
+          <li><%= link_to "マイページ", user_path(current_user) %></li>
+          <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
         <% else %>
           <li><%= link_to "ログイン", login_path %></li>
         <% end %>

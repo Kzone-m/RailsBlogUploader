@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-1">
+      <h2 class="text-center">Editor</h2>
+      <%= form_for(@post) do |f| %>
+        <%= f.label :title %>
+        <%= f.text_field :title, class: "form-control" %>
+        <%= f.label :content %>
+        <%= f.text_area :content, class: "form-control", id: "editor" %>
+        <%= f.submit yield(:btn_text), class: "form-control btn-danger", id: "post-submit" %>
+      <% end %>
+    </div>
+    <div class="col-sm-4 col-sm-offset-2">
+      <h2 class="text-center">Preview</h2>
+      <div id="preview">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+  var editor = $('#editor');
+  var preview = $('#preview');
+
+  function setContent(value){
+    var markedContent = marked(value);
+    preview.html(markedContent);
+  }
+
+  setContent(editor.val());
+
+  editor.keyup(function(){
+    var newContent = $(this).val();
+    setContent(newContent);
+  })
+
+  $("#new_post").submit(function(){
+    editor.val(marked(editor.val()));
+  });
+})
+</script>

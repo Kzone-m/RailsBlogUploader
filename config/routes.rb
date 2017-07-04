@@ -4,11 +4,13 @@ Rails.application.routes.draw do
 
   get '/login',to: 'sessions#login'
 
-  post 'login', to: 'sessions#login'
+  post '/login', to: 'sessions#login'
+
+  delete '/logout', to: 'sessions#logout'
 
   resources :posts
 
-  get 'users/login'
+  resources :users, only: [:show]
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

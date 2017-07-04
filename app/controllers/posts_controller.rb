@@ -22,9 +22,23 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @post = Post.find_by(id: params[:id])
+  end
+
+  def update
+    @post = Post.find_by(id: params[:id])
+    if @post.update_attributes(post_params)
+      flash[:success] = "Post is successfully edited!"
+      redirect_to post_url(@post)
+    else
+      render 'edit'
+    end
   end
 
   def destroy
+    Post.find_by(id: params[:id]).destroy
+    flash[:success] = "Post is successfully deleted!"
+    redirect_to posts_url
   end
 
   private

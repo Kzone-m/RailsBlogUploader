@@ -4,12 +4,16 @@
     <% @posts.each do | post | %>
       <div class="col-sm-4">
         <div class="post-card-wrapper">
-          <h3 class="text-center"><%= post.title %></h3>
-          <p class="text-right"><small>posted by <%= User.find_by(id: post.user_id).name %></small></p>
-          <p class="text-right"><small>Posted <%= time_ago_in_words(post.created_at) %>ago.</small></p>
+          <h3 class="text-center"><%= link_to post.title, post %></h3>
+          <p class="text-right"><small>posted by <%= link_to post_user(post).name, post_user(post) %></small>&nbsp;</p>
+          <p class="text-right"><small>Posted <%= time_ago_in_words(post.created_at) %>ago&nbsp;</small></p>
           <hr>
           <div class="post-content">
               <%= post.content %>
+          </div>
+          <div class="text-right">
+            <%= link_to "edit", edit_post_path(post), class: "btn btn-warning" %>
+            <%= link_to "delete", post_path(post), method: :delete, class: "btn btn-danger" %>
           </div>
         </div>
       </div>
@@ -21,6 +25,7 @@
 $(document).ready(function(){
   var postContent = $('.post-content');
   postContent.each(function(i, e){
+    // $(e).html(marked($(e).text()));
     $(e).html($(e).text());
   });
 })
